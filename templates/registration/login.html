@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Log in {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="col-md-4 offset-md-4 gy-5 " style="padding-top: 50px">
+            <div class="card">
+                {#        <div class="d-inline-flex mt-5 p-2">        #}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {{ form.as_p }}
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-outline-success align-center">Login</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
