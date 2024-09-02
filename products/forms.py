@@ -2,10 +2,16 @@ from django import forms
 
 from products.models import Product, Category, Subcategory
 
-FORMS_MODEL_CHOICE_FIELD = forms.ModelChoiceField(
+CATEGORY_CHOICE_FIELD = forms.ModelChoiceField(
     queryset=Category.objects.all(),
     widget=forms.Select(attrs={'class': 'form-control'}),
     empty_label="Select Category"  # Optional placeholder
+)
+
+SUBCATEGORY_CHOICE_FIELD = forms.ModelChoiceField(
+    queryset=Subcategory.objects.all(),
+    widget=forms.Select(attrs={'class': 'form-control'}),
+    empty_label="Select Subcategory"  # Optional placeholder
 )
 
 
@@ -60,11 +66,7 @@ class AddSubcategoryForm(forms.ModelForm):
             )
         }
 
-        parent = forms.ModelChoiceField(
-            queryset=Category.objects.all(),
-            widget=forms.Select(attrs={'class': 'form-control'}),
-            empty_label="Select Category"  # Optional placeholder
-        )
+        parent = CATEGORY_CHOICE_FIELD
 
 
 class AddProductForm(forms.ModelForm):
@@ -152,13 +154,9 @@ class AddProductForm(forms.ModelForm):
             )
         }
 
-        category = FORMS_MODEL_CHOICE_FIELD
+        category = CATEGORY_CHOICE_FIELD
 
-        subcategory = forms.ModelChoiceField(
-            queryset=Subcategory.objects.all(),
-            widget=forms.Select(attrs={'class': 'form-control'}),
-            empty_label="Select Subcategory"  # Optional placeholder
-        )
+        subcategory = SUBCATEGORY_CHOICE_FIELD
 
         # widgets = {
         #     'name': forms.TextInput(

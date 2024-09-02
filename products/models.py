@@ -68,7 +68,6 @@ class Product(models.Model):
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
     stock = models.IntegerField(default=0)
     image_id = models.CharField(max_length=32, unique=True, editable=False, default=uuid.uuid4().hex)
-    # image_id = models.CharField(max_length=32,  blank=True, null=True, default=uuid.uuid4().hex)
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
     image2 = models.ImageField(upload_to=upload_to, blank=True, null=True)
     image3 = models.ImageField(upload_to=upload_to, blank=True, null=True)

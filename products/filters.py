@@ -1,7 +1,7 @@
 import django_filters
 from django import forms
 
-from products.models import Product
+from products.models import Product, Category, Subcategory
 
 
 class ProductFilters(django_filters.FilterSet):
@@ -28,24 +28,24 @@ class ProductFilters(django_filters.FilterSet):
         )
     )
 
-    category = django_filters.CharFilter(
-        lookup_expr='icontains',
-        label='Category Name',
-        widget=forms.TextInput(
+    category = django_filters.ModelChoiceFilter(
+        queryset=Category.objects.all(),
+        label='Category',
+        widget=forms.Select(
             attrs={
                 'class': 'form-control',
-                'placeholder': "Search By Category Name"
+                'placeholder': "Select a Category"
             }
         )
     )
 
-    subcategory = django_filters.CharFilter(
-        lookup_expr='icontains',
-        label='Subcategory Name',
-        widget=forms.TextInput(
+    subcategory = django_filters.ModelChoiceFilter(
+        queryset=Subcategory.objects.all(),
+        label='Subcategory',
+        widget=forms.Select(
             attrs={
                 'class': 'form-control',
-                'placeholder': "Search By Subcategory Name"
+                'placeholder': "Select a Subcategory"
             }
         )
     )

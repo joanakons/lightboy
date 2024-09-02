@@ -172,7 +172,7 @@ a:hover {
 }
 
 .dropdown-menu {
-    transform: translateY(10px);     /*the sliding up*/
+    transform: translateY(10px); /*the sliding up*/
     transition: 0.3s;
 }
 
@@ -403,7 +403,7 @@ a:hover {
 }
 
 .collection-page-fullwidth .page-nav span:hover a svg,
-.collection-page-sidebar .page-nav span:hover a svg{
+.collection-page-sidebar .page-nav span:hover a svg {
     fill: #FFFFFF;
 }
 
@@ -937,8 +937,8 @@ a:hover {
 }
 
 .product-item-v9:hover .img-product-hover {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 .absolute {
@@ -981,7 +981,7 @@ a:hover {
     color: #969696;
     border-radius: 0;
     padding: 0;
-    transform: translate3d(-40px,33px,0)!important
+    transform: translate3d(-40px, 33px, 0) !important
 }
 
 .collection-sorting .dropdown .dropdown-content li a {
@@ -989,9 +989,10 @@ a:hover {
     color: #969696;
     padding: 5px 7px
 }
-.collection-sorting .dropdown .dropdown-content li.active a{
-  color: #b18b4d;
-  font-weight:bold;
+
+.collection-sorting .dropdown .dropdown-content li.active a {
+    color: #b18b4d;
+    font-weight: bold;
 }
 
 .collection-sorting .dropdown .dropdown-content li:hover a {
@@ -1038,7 +1039,7 @@ a:hover {
     font-size: 15px;
     font-weight: 500;
     height: 42px;
-    min-width: 165px!important;
+    min-width: 165px !important;
     background: 0 0;
     padding-left: 15px;
     border-radius: 0
@@ -1065,14 +1066,14 @@ a:hover {
 }
 
 .login-and-register .form-group {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
-.login-and-register .login,.login-and-register .register {
+.login-and-register .login, .login-and-register .register {
     padding-top: 100px
 }
 
-.login-and-register h1,.login-and-register h2.title24.title-form-account {
+.login-and-register h1, .login-and-register h2.title24.title-form-account {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 600;
@@ -1090,7 +1091,7 @@ a:hover {
     border-radius: 0
 }
 
-.login-and-register .form-control.active,.login-and-register .form-control:focus {
+.login-and-register .form-control.active, .login-and-register .form-control:focus {
     border-bottom: 1px solid #111111;
 }
 
@@ -1152,7 +1153,7 @@ a:hover {
 .login-and-register button:hover {
     background-color: #fff;
     color: #b18b4d;
-    box-shadow: 0 5px 15px rgba(0,0,0,.08)
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08)
 }
 
 .login-and-register .register-button:hover:before,
@@ -1175,4 +1176,51 @@ a:hover {
 .login-and-register .forgot_pass_form a {
     text-decoration: none;
     font-size: 14px
+}
+
+/* FOOTER SECTION */
+#footer-section {
+    margin-top: 50px;
+}
+
+.footer .copyright {
+    border-top: 1px solid #eee;
+    padding: 26px 0
+}
+
+.footer .copyright p {
+    margin-bottom: 0
+}
+
+.footer .copyright .text-copyright {
+    color: #111111;
+    font-size: 14px
+}
+
+.footer .copyright .text-copyright a {
+    font-weight: 400;
+    color: #111111;
+    text-decoration: none
+}
+
+.footer .copyright .text-copyright a:hover {
+    opacity: .8
+}
+
+.footer .copyright {
+    background: #f4f4f4;
+}
+
+.footer .copyright .text-copyright {
+    color: #111111;
+}
+
+.footer .copyright .text-copyright a {
+    color: #111111;
+}
+
+/* PRICE SLIDER */
+.slider {
+    margin: 20px;
+    padding: 20px;
 }
