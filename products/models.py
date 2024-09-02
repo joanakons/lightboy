@@ -1,4 +1,5 @@
 import os
+import uuid
 from django import forms
 from django.db import models
 from django.utils.deconstruct import deconstructible
@@ -40,10 +41,7 @@ class PathAndRename:
 
     def __call__(self, instance, filename):
         ext = filename.split('.')[-1]
-
-        # Generate a temporary filename if instance.pk is not available
-        if not instance.pk:
-            return os.path.join(self.path, f'temp-{filename}')
+        sequence = '00'
 
         # Determine the sequence number based on the field name
         if hasattr(instance, 'image') and filename == instance.image.name:
@@ -52,11 +50,9 @@ class PathAndRename:
             sequence = '02'
         elif hasattr(instance, 'image3') and filename == instance.image3.name:
             sequence = '03'
-        else:
-            sequence = '00'  # Default if something goes wrong
 
-        # Generate the filename as "id-01.ext"
-        filename = f'{instance.pk}-{sequence}.{ext}'
+        # Generate the filename using the unique_id
+        filename = f'{instance.image_id}-{sequence}.{ext}'
         return os.path.join(self.path, filename)
 
 
@@ -71,6 +67,8 @@ class Product(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
     stock = models.IntegerField(default=0)
+    image_id = models.CharField(max_length=32, unique=True, editable=False, default=uuid.uuid4().hex)
+    # image_id = models.CharField(max_length=32,  blank=True, null=True, default=uuid.uuid4().hex)
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
     image2 = models.ImageField(upload_to=upload_to, blank=True, null=True)
     image3 = models.ImageField(upload_to=upload_to, blank=True, null=True)
@@ -86,23 +84,12 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        # Save the instance first to get the ID, if it's new
-        if not self.pk:
-            super(Product, self).save(*args, **kwargs)
+        # Generate a unique_id if it doesn't exist
+        if not self.image_id:
+            self.image_id = uuid.uuid4().hex  # Generate a 32-character unique ID
 
-        # Rename images if necessary
-        self.rename_image_fields()
-
-        # Save the instance again with updated image names
+        # Save the instance with the unique_id
         super(Product, self).save(*args, **kwargs)
-
-    def rename_image_fields(self):
-        if self.image and self.image.name.startswith('temp-'):
-            self.image.name = upload_to(self, self.image.name.replace('temp-', ''))
-        if self.image2 and self.image2.name.startswith('temp-'):
-            self.image2.name = upload_to(self, self.image2.name.replace('temp-', ''))
-        if self.image3 and self.image3.name.startswith('temp-'):
-            self.image3.name = upload_to(self, self.image3.name.replace('temp-', ''))
 
 
 # afiseaza pretul cosului abia cand dai comanda

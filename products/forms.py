@@ -133,7 +133,9 @@ class AddProductForm(forms.ModelForm):
             ),
             'is_sale': forms.CheckboxInput(
                 attrs={
-                    'class': 'form-control'
+                    'class': 'form-check-input',
+                    'type': 'checkbox',
+                    'role': 'switch'
                 }
             ),
             'stock': forms.TextInput(
