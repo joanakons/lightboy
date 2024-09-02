@@ -6,37 +6,65 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 offset-md-4 gy-5">
-                <br><br>
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Sign up</h3>
-                    </div>
+            <div class="col-md-4 offset-md-4 gy-5 login-and-register">
+                <div>
+                    <h1 class="mb-0 title_login text-center">
+                        Register
+                    </h1>
                     <form method="post" enctype='multipart/form-data'>
                         {% csrf_token %}
-                        <div class="card-body">
-{#                            {{ form.as_p }}#}
-                            {% for field in form %}
-                                <div class="form-group">
-                                    <div class="mb-3">
-                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {{ field }}
-                                        {% if field.errors %}
-                                            <div class="form-text">
-                                                {% for error in field.errors %}
-                                                    <p class="text-danger">{{ error }}</p>
-                                                {% endfor %}
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-outline-success">Register</button>
+                        {% for field in form %}
+                            <div class="form-group row">
+                            <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
+                            <div class="col-sm-9">
+                              {{ field }}
+                                {% if field.errors %}
+                                        <div class="form-text">
+                                            {% for error in field.errors %}
+                                                <p class="text-danger">{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                            </div>
+                          </div>
+                        {% endfor %}
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-dark">Register</button>
+                          </div>
+                        <div class="forgot_pass_form mt-4 d-flex justify-content-center">
+                            <a href="/">Return to Store</a>
                         </div>
                     </form>
                 </div>
+{#                <div class="card">#}
+{#                    <div class="card-header">#}
+{#                        <h3 class="text-center">Sign In</h3>#}
+{#                    </div>#}
+{#                    <form method="post" enctype='multipart/form-data'>#}
+{#                        {% csrf_token %}#}
+{#                        <div class="card-body">#}
+{#                            {{ form.as_p }}#}
+{#                            {% for field in form %}#}
+{#                                <div class="form-group">#}
+{#                                    <div class="mb-3">#}
+{#                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>#}
+{#                                        {{ field }}#}
+{#                                        {% if field.errors %}#}
+{#                                            <div class="form-text">#}
+{#                                                {% for error in field.errors %}#}
+{#                                                    <p class="text-danger">{{ error }}</p>#}
+{#                                                {% endfor %}#}
+{#                                            </div>#}
+{#                                        {% endif %}#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                        <div class="card-footer text-center">#}
+{#                            <button type="submit" class="btn btn-outline-success">Register</button>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
             </div>
         </div>
     </div>

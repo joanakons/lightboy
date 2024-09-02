@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title%} Add Category  {% endblock %}
+
+{% block content%}
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 gy-5">
+                <br><br>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Add category</h3>
+                    </div>
+                    <form method="post" enctype='multipart/form-data'>
+                        {% csrf_token %}
+                        <div class="card-body">
+                         {{ form.as_p }}
+                        </div>
+                        <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

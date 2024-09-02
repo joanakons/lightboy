@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+
+    <section class="collection-page-sidebar">
+        <div class="container container-v1">
+            <div class="row">
+                <div class="col-lg-3  order-1">
+                    <div class="filter_sidebar_general d-none d-lg-block sticky">
+                        <div style="overflow: hidden" class="engoj-collection-sidebar engoc_sw_filter_tag">
+                            <form method="get">
+                                <div class="card-body">
+                                    {{ filters_form.as_p }}
+                                </div>
+                                <div class="card-footer text-center">
+                                    <button type="submit" class="btn btn-outline-success">Search</button>
+                                    <a href="{% url 'products' %}" class="btn btn-outline-danger">Reset</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 px-0  order-2 ">
+                    <div class="content-page">
+                        <div class="container container-v2">
+                            <div class="row shop_control ">
+                                <div class="col-md-6 col-6">
+                                    <div class="filter_sortby d-flex d-lg-none">
+
+                                        <a class="filter d-inline-flex  " data-toggle="collapse" data-target="#demo"
+                                           href="javascript:void(0)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="393pt"
+                                                 viewBox="-4 0 393 393.99003" width="393pt">
+                                                <path d="m368.3125 0h-351.261719c-6.195312-.0117188-11.875 3.449219-14.707031 8.960938-2.871094 5.585937-2.3671875 12.3125 1.300781 17.414062l128.6875 181.28125c.042969.0625.089844.121094.132813.183594 4.675781 6.3125 7.203125 13.957031 7.21875 21.816406v147.796875c-.027344 4.378906 1.691406 8.582031 4.777344 11.6875 3.085937 3.105469 7.28125 4.847656 11.65625 4.847656 2.226562 0 4.425781-.445312 6.480468-1.296875l72.3125-27.574218c6.480469-1.976563 10.78125-8.089844 10.78125-15.453126v-120.007812c.011719-7.855469 2.542969-15.503906 7.214844-21.816406.042969-.0625.089844-.121094.132812-.183594l128.683594-181.289062c3.667969-5.097657 4.171875-11.820313 1.300782-17.40625-2.832032-5.511719-8.511719-8.9726568-14.710938-8.960938zm-131.53125 195.992188c-7.1875 9.753906-11.074219 21.546874-11.097656 33.664062v117.578125l-66 25.164063v-142.742188c-.023438-12.117188-3.910156-23.910156-11.101563-33.664062l-124.933593-175.992188h338.070312zm0 0"></path>
+                                            </svg>
+                                            <p class="mb-0">filter</p>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-6">
+                                    <div class="change_prod">
+{#                                        <div class="change_collum">#}
+{#                                            <div class="icon_change">#}
+{#                                            </div>#}
+{#                                            <div class="prod_per">#}
+{#                                                <a href="javascript:void(0)" class="size_2">2</a>#}
+{#                                                <a href="javascript:void(0)" class="size_3">3</a>#}
+{#                                                <a href="javascript:void(0)" class="size_4 active">4</a>#}
+{#                                                <a href="javascript:void(0)" class="size_5">5</a>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="style_layout_prod  justify-content-md-end justify-content-center ">#}
+{#                                            <div class="collection-sorting form-horizontal form-group pull-right text-right">#}
+{#                                                <div class="dropdown">#}
+{#                                                    <button class="dropdown-toggle" data-toggle="dropdown"#}
+{#                                                            id="dropdownMenuLink">#}
+{#                                                        <span class="dropdown-label">Default sorting</span>#}
+{#                                                    </button>#}
+{#                                                    <ul class="dropdown-content dropdown-menu"#}
+{#                                                        aria-labelledby="dropdownMenuLink">#}
+{#                                                        <li class="active"><a href="manual">Default sorting</a></li>#}
+{#                                                        <li><a href="best-selling">Best Selling</a></li>#}
+{#                                                        <li><a href="title-ascending">Alphabetically, A-Z</a></li>#}
+{#                                                        <li><a href="price-descending">Price, high to low</a></li>#}
+{#                                                        <li><a href="price-ascending">Price, low to high</a></li>#}
+{#                                                        <li><a href="created-ascending">Date, old to new</a></li>#}
+{#                                                        <li><a href="created-descending">Date, new to old</a></li>#}
+{#                                                    </ul>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix relative collection_prod">
+                                <div class="product-grid-view grid-uniform">
+                                    <div class="row">
+                                        {% if all_products %}
+                                            {% for product in all_products %}
+                                                <div class="col-md-4 js_size_prod  col-lg-3  col-6 pb-4 trans-product">
+                                                    <div class="product-item-v9">
+                                                        <div class="product mb-30 engoj_grid_parent relative">
+                                                            <div class="img-product relative">
+                                                                <a href="{% url 'product' product.id %}"
+                                                                   class="engoj_find_img">
+                                                                    <img
+                                                                         loading="lazy"
+                                                                         width="100%"
+                                                                         height="100%"
+                                                                         style="width: 100%"
+                                                                         data-src="{{ product.image.url }}"
+                                                                         src="{{ product.image.url }}"
+                                                                         class="img-responsive lazyloaded"
+                                                                         alt="{{ product.name }}"
+                                                                    >
+                                                                    <img
+                                                                         loading="lazy"
+                                                                         width="100%"
+                                                                         height="100%"
+                                                                         style="width: 100%"
+                                                                         data-src="{{ product.image2.url }}"
+                                                                         src="{{ product.image2.url }}"
+                                                                         class="img-responsive absolute img-product-hover lazyloaded"
+                                                                         alt="{{ product.name }}"
+                                                                    >
+                                                                </a>
+                                                                <ul class="product-icon-action list-unstyled mb-0 text-center px-0">
+                                                                    <li class="add-to-cart mr-0">
+                                                                        <a href="#{{ product.name }}"
+                                                                           class="inline-block icon-addcart box-shadow"
+                                                                           data-toggle="tooltip" data-placement="top"
+                                                                           data-original-title="Select Option">
+                                                                            <i class="fsz-unset">
+                                                                                <svg viewBox="0 0 297.79 398.67" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <g transform="matrix(1.3333 0 0 -1.3333 0 398.67)">
+                                                                                        <g transform="scale(.1)">
+                                                                                            <path d="m2233.4 2432.7h-2233.4v-2432.7h2233.4v2432.7zm-220-220v-1992.7h-1793.4v1992.7h1801.4"></path>
+                                                                                            <path d="m1116.7 2990c-361.22 0-654.04-292.82-654.04-654.04v-119.04h1308.1v119.04c0 361.22-292.82 654.04-654.03 654.04zm0-220c204.58 0 376.55-142.29 422.19-333.08h-844.38c45.625 190.79 217.61 333.08 422.19 333.08" xmlns="http://www.w3.org/2000/svg"></path>
+                                                                                            <path d="m1554.8 1888.2h-876.28v169.54h876.28v-169.54" xmlns="http://www.w3.org/2000/svg"></path>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="add-wishlist mr-0">
+                                                                        <a href="#{{ product.name }}"
+                                                                           class="box-shadow  inline-block maxus-product__wishlist wish text-center"
+                                                                           data-toggle="tooltip" data-placement="top"
+                                                                           data-original-title="Add to Wishlist">
+
+                                                                            <i class="fsz-unset">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     viewBox="0 0 400 400" height="400"
+                                                                                     width="400">
+                                                                                    <g transform="matrix(1.3333333,0,0,-1.3333333,0,400)">
+                                                                                        <g transform="scale(0.1)">
+                                                                                            <path style="fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 903,2424.4 c 157.9,0 306.4,-61.5 418.1,-173.1 l 134.8,-134.9 c 20.7,-20.6 48.1,-32 77.1,-32 29,0 56.4,11.4 77,32 l 133.7,133.7 c 111.7,111.6 259.9,173.1 417.5,173.1 156.91,0 305,-61.3 416.8,-172.5 111.2,-111.3 172.5,-259.5 172.5,-417.5 0.6,-157.3 -60.69,-305.5 -172.5,-417.4 L 1531.5,373.5 487.402,1417.6 c -111.601,111.7 -173.105,259.9 -173.105,417.5 0,158.1 61.199,306.1 172.5,416.8 111.308,111.2 259.101,172.5 416.203,172.5 z m 1829.7,-19.6 c 0,0 0,0 -0.1,0 -152.4,152.4 -355.1,236.3 -570.9,236.3 -215.7,0 -418.7,-84.1 -571.5,-236.9 l -56.9,-57 -58.2,58.2 c -153.1,153.1 -356.3,237.5 -572.1,237.5 -215.305,0 -417.902,-83.9 -570.305,-236.3 -153,-153 -236.8942,-356 -236.2966,-571.5 0,-215 84.4026,-417.8 237.4966,-571 L 1454.7,143.301 c 20.5,-20.403 48.41,-32.199 76.8,-32.199 28.7,0 56.7,11.5 76.7,31.597 L 2731.5,1261.8 c 152.7,152.7 236.8,355.7 236.8,571.4 0.7,216 -83,419 -235.6,571.6"></path>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <h4 class="des-font capital title-product mb-0">
+                                                                <a href="{% url 'product' product.id %}">{{ product.name }}</a>
+                                                            </h4>
+                                                            <p class="price-product mb-0">
+                                                                <s class="price-old">{{ product.price }}</s>
+                                                                <span class="price">{{ product.sale_price }}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div>No Products</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="page-nav text-right">
+                                        <span class="page current">1</span>
+                                        <span class="page">
+                                            <a href="/products?page=2" title="">2</a>
+                                        </span>
+                                        <span class="next">
+                                            <a href="/products?page=2" title="">
+                                                <svg width="19.067mm" height="19.067mm" version="1.1" viewBox="0 0 19.067 19.067" xmlns="http://www.w3.org/2000/svg">
+                                                    <g transform="matrix(.26458 0 0 -.26458 -3.7403 22.834)">
+                                                        <path d="m31.1 85c0.9 0.9 2 1.3 3.2 1.3s2.3-0.4 3.2-1.3l31.8-31.8c0.8-0.8 1.3-2 1.3-3.2s-0.5-2.3-1.3-3.2l-31.9-31.3c-1.8-1.7-4.6-1.7-6.4 0.1-1.7 1.8-1.7 4.6 0.1 6.4l28.5 28-28.5 28.6c-1.8 1.8-1.8 4.6 0 6.4z"/>
+                                                    </g>
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{#    <div class="container-fluid">#}
+{#        <div class="row">#}
+{#            <div class="col-md-2 gy-5">#}
+{#                <div class="card">#}
+{#                    <div class="card-header">#}
+{#                        <h5 class="text-center">Search</h5>#}
+{#                    </div>#}
+{#                    <form method="get">#}
+{#                        <div class="card-body">#}
+{#                            {{ filters_form.as_p }}#}
+{#                        </div>#}
+{#                        <div class="card-footer text-center">#}
+{#                            <button type="submit" class="btn btn-outline-success">Search</button>#}
+{#                            <a href="{% url 'products' %}" class="btn btn-outline-danger">Reset</a>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-10 gy-5">#}
+{#                <table class="table">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>#</th>#}
+{#                        <th>Name</th>#}
+{#                        <th>Brand</th>#}
+{#                        <th>Category</th>#}
+{#                        <th>Subcategory</th>#}
+{#                        <th>Price</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% if all_products %}#}
+{#                        {% for product in all_products %}#}
+{#                            <tr>#}
+{#                                <td>{{ forloop.counter }}</td>#}
+{#                                <td>{{ product.name }}</td>#}
+{#                                <td>{{ product.brand }}</td>#}
+{#                                <td>{{ product.category }}</td>#}
+{#                                <td>{{ product.subcategory }}</td>#}
+{#                                <td>{{ product.price }}</td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                    {% else %}#}
+{#                        <tr>#}
+{#                            <td colspan="6" class="text-center">No Products</td>#}
+{#                        </tr>#}
+{#                    {% endif %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+
+{% endblock %}

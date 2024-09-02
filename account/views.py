@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -11,11 +12,15 @@ from account.models import Account
 from django.core.mail import send_mail
 
 # Create your views here.
-class AccountCreateView(CreateView):
+class AccountCreateView(SuccessMessageMixin, CreateView):
     template_name = 'account/create_user.html'
     model = Account
     form_class = AccountCreateForm
     success_url = reverse_lazy('login')
+    success_message = 'Your account has been created!'
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message
 
     def form_invalid(self, form):
         print(form.errors, "23")
