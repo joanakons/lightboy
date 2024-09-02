@@ -152,8 +152,12 @@
                                                                 <a href="{% url 'product' product.id %}">{{ product.name }}</a>
                                                             </h4>
                                                             <p class="price-product mb-0">
-                                                                <s class="price-old">{{ product.price }}</s>
-                                                                <span class="price">{{ product.sale_price }}</span>
+                                                                {% if product.is_sale %}
+                                                                    <s class="price-old">{{ product.price }}</s>
+                                                                    <span class="price">{{ product.sale_price }}</span>
+                                                                {% else %}
+                                                                    <span class="price">{{ product.price }}</span>
+                                                                {% endif %}
                                                             </p>
                                                         </div>
                                                     </div>
