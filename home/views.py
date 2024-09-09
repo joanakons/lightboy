@@ -8,3 +8,15 @@ class HomeView(TemplateView):
 
 
 # Create your views here.
+
+
+# admin area - order view - view orders/edit orders/update orders/delete orders
+# style account area
+# change password
+# edit addresses
+# categories view page
+# email with order
+# pagination - 4 per row, 20 per page
+# configuratorrrrrr
+
+

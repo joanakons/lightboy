@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Order Id.</th>
+                <th>User</th>
+                <th>Item Count</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if all_orders %}
+                {% for order in all_orders %}
+
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user.email }}</td>
+                        <td>{{ order.item_count }}</td>
+                        <td>€ {{ order.total_price }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.order_date }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    More Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Update
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Delete
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Details
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No Orders</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

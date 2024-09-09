@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %} My Account {% endblock %}
+
+{% block content %}
+
+    <div class="d-flex align-items-start">
+        <!-- Nav tabs -->
+        <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button"
+                        role="tab" aria-controls="orders" aria-selected="false">orders
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button"
+                        role="tab" aria-controls="payment" aria-selected="false">Payment Methods
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button"
+                        role="tab" aria-controls="settings" aria-selected="false">Settings
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Item Count</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in user_orders %}
+                        {{ order }}
+{#                         {% for order in all_orders %}#}
+{#                        {% for item in all_items_ordered %}#}
+{#                            {% if item.order.id == order.id %}#}
+                        <tr>
+{#                            <td>{{ order.id }}</td> eventual un nr de comanda afisat aici #}
+{#                            <td>{{ item.quantity }}</td>#}
+                            <td>{{ order.item_count }}</td>
+                            <td>€ {{ order.total_price }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>{{ order.order_date }}</td>
+                        </tr>
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="payment" role="tabpanel" aria-labelledby="payment-tab">payment</div>
+            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">settings</div>
+        </div>
+
+    </div>
+
+
+    {#    <a href=" {% url 'wishlist' %}">My Wishlist</a>#}
+    {#    <a href=" {% url 'cart' %}">My Cart</a>#}
+    {#    <a href=" {% url 'my_orders' %}">My Orders</a>#}
+
+    {#    {% if order_detail and order_detail.id %}#}
+    {#        <a href="{% url 'order_detail' order_detail.id %}">My Orders</a>#}
+    {#    {% else %}#}
+    {#        <p>You have no orders yet.</p>#}
+    {#    {% endif %}#}
+    {##}
+    {#    <a href=" {% url 'order_detail' order_detail.id %}">My Orders</a>#}
+    {#    <a href=" {% url 'addresses' %}">My Addresses</a>#}
+    {#    <a href=" {% url 'payment_methods' %}">My Payment Methods</a>#}
+    {#    <a href=" {% url 'orders_settings' %}">orders Settings</a>#}
+
+{% endblock %}

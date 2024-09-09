@@ -1,0 +1,89 @@
+<div class="js-mini-cart mini-cart">
+            <div class="relative" style="height: 100%;">
+                <div class="mini-content">
+                    <div class="mini-cart-head">
+                        <a href="#close" class="mini-cart-undo close-mini-cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667"
+                                 style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+            <g>
+              <g>
+                <polygon
+                        points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+              </g>
+            </g>
+
+          </svg>
+                        </a>
+                        <h3 class="title">Shopping Cart</h3>
+                        <div class="mini-cart-counter"><span class="cart-counter enj-cartcount">{{ cart_items.count }}</span></div>
+                    </div>
+
+                    <div class="mini-cart-bottom enj-mini-cart-ajax">
+
+                        <div class="prod">
+                            <div class="product-cart">
+
+                                {% if cart_items %}
+                                    {% for item in cart_items %}
+                                        <ol class="mini-cart_item list-unstyled mb-0 px-0">
+                                            <li class="d-flex">
+                                                <div class="thumb-img-cart-mini">
+                                                    <a href="{% url 'product' item.product.id %}" title=""
+                                                       class="">
+                                                        <img loading="lazy" width="" height=""
+                                                                     alt="{{ item.product.name }}"
+                                                                     src="{{ item.product.image.url }}"></a>
+                                                </div>
+                                                <div class="product-detail">
+                                                    <h3 class="product_name_mini">
+                                                        <a href="{% url 'product' item.product.id %}">{{ item.product.name }}</a>
+                                                    </h3>
+                                                    <div class="product_info">
+                                                        <div class="product_quanity">QTY : {{ item.quantity }}</div>
+                                                        <div class="product_price">
+                                                            {% if product.is_sale %}
+                                                                <span class="price">€ {{ item.product.sale_price }}</span>
+                                                            {% else %}
+                                                                <span class="price">€ {{ item.product.price }}</span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-remove">
+                                                    <a href="{% url 'delete_from_cart' item.product.id %}" class="remove-product" data-line="1">
+                                                        {% include 'svg-includes/trash-can.html' %}
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    {% endfor %}
+                                {% else %}
+                                    Your cart is empty. <a href="{% url 'products' %}"> Let's change that.  </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="sub-total">
+
+                            <span class="total-title float-left">Total:</span>
+                            <span class="total-price float-right">€ {{ total_price }}</span>
+
+                        </div>
+                        <div class="action-checkout">
+
+                            <a href="{% url 'cart' %}" class="button-viewcart">
+                                <span>View cart</span>
+                            </a>
+                            <a href="{% url 'create_order' %}" class="button-checkout">
+{#                                <span>Check out</span>#}
+                                <span>Create Order</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+

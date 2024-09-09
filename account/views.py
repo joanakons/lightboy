@@ -1,15 +1,18 @@
 import random
 import string
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from FinalProject.settings import DEFAULT_FROM_EMAIL
 from account.forms import AccountCreateForm
 from account.models import Account
 from django.core.mail import send_mail
+
+from orders.models import Order, OrderItem
 
 
 class AccountCreateView(SuccessMessageMixin, CreateView):
@@ -30,8 +33,7 @@ class AccountCreateView(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         if form.is_valid():
             new_account = form.save(commit=False)
-            username = f'{new_account.first_name[0].lower()}_{new_account.last_name.lower()}{random.randint(1000,9999)}'
-            # TODO: verificre unicitate username
+            username = f'{new_account.first_name[0].lower()}_{new_account.last_name.lower()}{random.randint(1000, 9999)}'
 
             while Account.objects.filter(username=username).exists():
                 username = f'{new_account.first_name[0].lower()}_{new_account.last_name.lower()}{random.randint(1000, 9999)}'
@@ -55,6 +57,22 @@ class AccountCreateView(SuccessMessageMixin, CreateView):
 
             return super(AccountCreateView, self).form_valid(form)
 
+
+class AccountAreaView(LoginRequiredMixin, DetailView):
+    template_name = 'account/account_area.html'
+    model = Account
+    context_object_name = 'account'
+
+    def get_queryset(self):
+        # Filter the queryset to only include the logged-in user's account
+        return Account.objects.filter(user_ptr_id=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['account_id'] = self.request.user  # Account ID of the logged-in user
+        context['all_orders'] = Order.objects.filter(user_id=self.request.user)
+        context['all_items_ordered'] = OrderItem.objects.filter(order__user_id=self.request.user)
+        return context
+
 # TODO: Orders
-# TODO: Wishlist
-# TODO: Cart
+# TODO: AccountArea

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My Wishlist {% endblock %}
+
+{% block content %}
+
+    {% for item in wishlist %}
+        {{ item.product.name }}
+
+    {% endfor %}
+
+{% endblock %}

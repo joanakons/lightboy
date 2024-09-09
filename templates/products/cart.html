@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My Wishlist {% endblock %}
+
+{% block content %}
+    <section class="page-cart">
+        <div class="content-pages">
+            <div class="container container-v1">
+                <div class="content-about content-cart-page">
+                    {% if cart_items %}
+                    <form action="/cart" method="post" novalidate="">
+                        <div class="table-responsive">
+                            <table class="shop_table table--responsive cart table">
+                                <thead>
+                                <tr class="cart-title">
+                                    <th colspan="2" class="product-thumbnail"> Product name</th>
+                                    <th class="product-price">Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-subtotal">Total</th>
+                                    <th class="product-remove">&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in cart_items %}
+                                <tr class="cart_item">
+                                    <td data-label="Product Name" class="product-thumbnail">
+                                        <a href="{% url 'product' item.product.id %}">
+                                            <img
+                                                width="100px"
+                                                height="100px"
+                                                src="{{ item.product.image.url }}"
+                                                alt="{{ item.product.brand }} - {{ item.product.name }}"
+                                            >
+                                        </a>
+                                    </td>
+                                    <td class="product-name-thumb" data-title="Product">
+                                        <a href="{% url 'product' item.product.id %}">
+                                            {{ item.product.brand }} - {{ item.product.name }}
+                                        </a>
+                                    </td>
+                                    <td data-label="Product Price" class="product-price" data-title="Price">
+                                        <span class="amount">
+                                            {% if product.is_sale %}
+                                                € {{ item.product.sale_price }}
+                                            {% else %}
+                                                € {{ item.product.price }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                    <td data-label="Quantity" class="product-quantity" data-title="Quantity">
+                                        <div class="js-quantity">
+                                            <a
+                                                href="{% url 'cart_item_decrement' item.product.id %}"
+                                                class="minus js-adjust-quantity js-adjust-quantity-minus icon-fallback-text"
+                                            >
+                                                {% include 'svg-includes/caret-right.html' %}
+                                            </a>
+                                            <input type="text" class="quantity-num" value="{{ item.quantity }}" min="1"
+                                                   aria-label="quantity">
+                                            <a
+                                                href="{% url 'cart_item_increment' item.product.id %}"
+                                                class="plus js-adjust-quantity js-adjust-quantity-plus icon-fallback-text"
+                                            >
+                                                {% include 'svg-includes/caret-right.html' %}
+                                            </a>
+                                        </div>
+
+
+                                    </td>
+                                    <td data-label="Sub Total" class="product-subtotal" data-title="Total">
+                                        {% for price in price_per_item %}
+                                            {% if forloop.counter == forloop.parentloop.counter %}
+                                                <span class="amount">€ {{ price }}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td class="product-remove">
+                                        <a class="remove set-12-svg" href="{% url 'delete_from_cart' item.product.id %}">
+                                            {% include 'svg-includes/close.html' %}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="cart_totals ">
+{#                            <div class="cart-update">#}
+{#                                <input type="submit" value="Update Cart" name="update_cart" class="button bg-color">#}
+{#                            </div>#}
+                            <div class="continue-shopping-1">
+                                <a href="{% url 'products' %}">Continue Shopping</a>
+                            </div>
+
+                            <div class="cart-check">
+                                <h2 class="cart-title">CART TOTALS</h2>
+                                <table class="total-checkout">
+                                    <tbody>
+                                    <tr>
+                                        <th class="cart-label">
+                                            <span>Total</span>
+                                        </th>
+                                        <td class="cart-amount">
+                                            <span>
+                                                <strong>
+                                                    <span class="amount">
+                                                        € {{ total_cart }}
+                                                    </span>
+                                                </strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="wc-proceed-to-checkout clearfix">
+                                    <a class="checkout-button button alt wc-forward bg-color" href="{% url 'create_order' %}">
+{#                                        Proceed to checkout#}
+                                        Create Order
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% else %}
+                        Your cart is empty. <a href="{% url 'products' %}"> Let's change that. </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- End Content Pages -->
+    </section>
+{% endblock %}

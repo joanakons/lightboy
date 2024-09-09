@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} My Account {% endblock %}
+
+{% block content %}
+
+
+
+
+<h1>Order {{ order.id }}</h1>
+<p>Order Date: {{ order.order_date }}</p>
+<p>Status: {{ order.status }}</p>
+
+<h2>Items</h2>
+<ul>
+    {% for item in order.items.all %}
+        <li>{{ item.quantity }} x {{ item.product.name }} - ${{ item.get_total_item_price }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Total: ${{ order.get_total }}</h3>
+
+{% endblock %}
